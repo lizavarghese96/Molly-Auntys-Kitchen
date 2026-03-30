@@ -28,16 +28,6 @@ Replace with:
 
 Put all your photos in the `assets/` folder.
 
-## How to upload this to GitHub
-
-1. Go to your repo: `https://github.com/lizavarghese96/Molly-Auntys-Kitchen`
-2. Click **Add file → Upload files**
-3. Upload `index.html` — this replaces your old one
-4. Commit changes
-5. Your site at `https://lizavarghese96.github.io/Molly-Auntys-Kitchen/` updates in ~1 min
-
-> The old separate pages (plan.html, menu.html etc.) can stay — they won't affect the new index.html
-
 ## Sections
 
 | Section | What's inside |
