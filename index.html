@@ -3,95 +3,944 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Molly Aunty's Pothichoru</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Molly Aunty's Kitchen — Pothichoru from the Heart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --g1: #1a3a0f;
+      --g2: #2d5a1e;
+      --g3: #4a7c35;
+      --g4: #c8e6b0;
+      --g5: #eef6e6;
+      --a1: #8b4513;
+      --a2: #c17f24;
+      --a3: #f5c842;
+      --a4: #fdf0c8;
+      --cream: #faf6ef;
+      --ink: #1c1409;
+      --ink2: #4a3f2f;
+      --ink3: #9a8a70;
+      --white: #ffffff;
+      --border: #e8ddd0;
+      --r: 12px;
+      --rl: 20px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--g1);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 58px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-brand {
+      font-family: 'Lora', serif;
+      font-size: 16px; color: #fff;
+      display: flex; align-items: center; gap: 10px;
+      cursor: pointer;
+    }
+    .nav-brand .leaf { font-size: 22px; animation: sway 5s ease-in-out infinite; display: inline-block; }
+    @keyframes sway { 0%,100%{transform:rotate(-6deg)} 50%{transform:rotate(6deg)} }
+    .nav-pills { display: flex; gap: 2px; list-style: none; }
+    .nav-pills li a {
+      display: block; padding: 6px 14px; border-radius: 6px;
+      color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 400;
+      transition: all .15s; cursor: pointer; text-decoration: none;
+    }
+    .nav-pills li a:hover,
+    .nav-pills li a.active { color: #fff; background: rgba(255,255,255,0.13); }
+    .hamburger { display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 4px; }
+
+    /* ── SECTIONS ── */
+    section { display: none; }
+    section.active { display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--g1);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+      background: var(--cream);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .hero-emoji { font-size: 56px; display: block; margin-bottom: 1rem; animation: sway 5s ease-in-out infinite; }
+    .hero h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.2rem, 6vw, 3.4rem);
+      color: #fff; font-weight: 600;
+      line-height: 1.2; margin-bottom: .6rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--a3); }
+    .hero-sub { font-size: 16px; color: rgba(255,255,255,0.7); margin-bottom: .4rem; }
+    .hero-loc { font-size: 12px; color: rgba(255,255,255,0.45); letter-spacing: .08em; text-transform: uppercase; }
+    .hero-badges { display: flex; justify-content: center; gap: 10px; margin-top: 2rem; flex-wrap: wrap; }
+    .hbadge {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.85);
+      padding: 6px 16px; border-radius: 30px; font-size: 13px;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; position: relative; z-index: 1; }
+    .page-header { margin-bottom: 2.5rem; }
+    .page-header h2 { font-family: 'Lora', serif; font-size: clamp(1.8rem,4vw,2.4rem); color: var(--ink); }
+    .page-header p { font-size: 15px; color: var(--ink3); margin-top: .4rem; }
+
+    /* ── SECTION LABEL ── */
+    .slabel {
+      font-size: 10px; font-weight: 500; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--ink3);
+      margin: 2.5rem 0 .75rem;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .slabel::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--rl); padding: 1.4rem 1.6rem; margin-bottom: 12px;
+    }
+    .card h3 { font-family: 'Lora', serif; font-size: 18px; margin-bottom: 5px; color: var(--ink); }
+    .card p { font-size: 14px; color: var(--ink2); line-height: 1.75; }
+    .card-green { border-left: 3px solid var(--g2); border-radius: 0 var(--rl) var(--rl) 0; }
+    .card-amber { border-left: 3px solid var(--a2); border-radius: 0 var(--rl) var(--rl) 0; }
+    .card-red   { border-left: 3px solid #c0392b; border-radius: 0 var(--rl) var(--rl) 0; }
+
+    /* ── IMAGE PLACEHOLDER ── */
+    .img-ph {
+      width: 100%; border-radius: var(--r);
+      background: var(--g5);
+      border: 2px dashed var(--g4);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--g3); font-size: 13px; gap: 6px;
+      position: relative; overflow: hidden;
+    }
+    .img-ph .ph-icon { font-size: 32px; opacity: .5; }
+    .img-ph .ph-text { opacity: .7; text-align: center; padding: 0 1rem; }
+
+    /* ── GRID ── */
+    .g2 { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+    .g3 { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+    .g4 { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
+
+    /* ── STAT CARDS ── */
+    .stat { background: var(--g5); border-radius: var(--r); padding: 1rem 1.2rem; text-align: center; }
+    .stat .snum { font-family: 'Lora', serif; font-size: 28px; color: var(--g2); line-height: 1.1; }
+    .stat .slbl { font-size: 11px; color: var(--ink3); margin-top: 3px; }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-block; font-size: 11px; font-weight: 500;
+      padding: 3px 10px; border-radius: 20px; margin-bottom: 8px;
+    }
+    .bg { background: var(--g5); color: var(--g2); }
+    .ba { background: var(--a4); color: var(--a1); }
+    .bb { background: #e8f0fe; color: #1a56db; }
+    .br { background: #fdecea; color: #c0392b; }
+    .bk { background: #f0ece6; color: var(--ink3); }
+
+    /* ── MENU ITEMS ── */
+    .menu-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+    .menu-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--rl); overflow: hidden;
+      transition: transform .2s, box-shadow .2s; cursor: default;
+    }
+    .menu-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    .menu-img { height: 180px; }
+    .menu-body { padding: 1.1rem 1.3rem; }
+    .menu-body .mname { font-family: 'Lora', serif; font-size: 18px; color: var(--ink); }
+    .menu-body .mdesc { font-size: 13px; color: var(--ink3); margin: 4px 0 10px; line-height: 1.5; }
+    .menu-body .mprice { font-family: 'Lora', serif; font-size: 20px; color: var(--g2); font-weight: 600; }
+    .menu-note { font-size: 11px; color: var(--ink3); margin-top: 4px; }
+
+    /* ── TIMELINE ── */
+    .tl { position: relative; padding-left: 28px; }
+    .tl::before { content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px; background: var(--border); }
+    .tl-item { position: relative; margin-bottom: 2rem; }
+    .tl-dot {
+      position: absolute; left: -28px; top: 4px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--g2); border: 2px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--g2);
+    }
+    .tl-dot.amber { background: var(--a2); box-shadow: 0 0 0 2px var(--a2); }
+    .tl-dot.gray  { background: var(--ink3); box-shadow: 0 0 0 2px var(--ink3); }
+    .tl-wk { font-size: 11px; color: var(--ink3); letter-spacing: .04em; margin-bottom: 3px; }
+    .tl-item h4 { font-family: 'Lora', serif; font-size: 17px; color: var(--ink); margin-bottom: 4px; }
+    .tl-item p  { font-size: 14px; color: var(--ink2); line-height: 1.7; }
+
+    /* ── ROLE CARDS ── */
+    .role-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 500; font-size: 15px; flex-shrink: 0;
+    }
+    .av-g { background: var(--g5); color: var(--g2); }
+    .av-b { background: #e8f0fe; color: #1a56db; }
+    .role-list { list-style: none; background: var(--cream); border-radius: var(--r); padding: .8rem 1rem; margin-top: 12px; }
+    .role-list li { font-size: 13px; color: var(--ink2); padding: 3px 0 3px 14px; position: relative; line-height: 1.6; }
+    .role-list li::before { content: '–'; position: absolute; left: 0; color: var(--ink3); }
+
+    /* ── SCHEDULE ── */
+    .sched-row {
+      display: grid; grid-template-columns: 110px 1fr;
+      gap: 8px 16px; padding: 12px 0;
+      border-bottom: 1px solid var(--border); font-size: 14px; align-items: start;
+    }
+    .sched-row:last-child { border-bottom: none; }
+    .sched-time { color: var(--ink3); font-size: 13px; line-height: 1.5; }
+    .sched-task { color: var(--ink2); line-height: 1.6; }
+
+    /* ── MONEY ── */
+    .money-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 14px;
+    }
+    .money-row:last-child { border-bottom: none; }
+    .money-row .ml { color: var(--ink2); }
+    .money-row .mr { font-weight: 500; color: var(--ink); }
+    .money-row.total .ml { font-weight: 500; color: var(--ink); }
+    .money-row.total .mr { color: var(--g2); font-size: 17px; font-family: 'Lora', serif; }
+
+    /* ── CONCERN ── */
+    .concern {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--ink2); line-height: 1.7;
+    }
+    .concern:last-child { border-bottom: none; }
+    .cdot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .concern strong { font-weight: 500; color: var(--ink); display: block; margin-bottom: 2px; }
+    .resolve { margin-top: 6px; font-size: 13px; color: var(--g2); background: var(--g5); border-radius: 8px; padding: 6px 10px; }
+
+    /* ── INTERACTIVE PROFIT CALC ── */
+    .calc-slider { width: 100%; margin: .5rem 0; accent-color: var(--g2); }
+    .calc-result {
+      background: var(--g5); border-radius: var(--r);
+      padding: 1.2rem 1.4rem; margin-top: 1rem;
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; text-align: center;
+    }
+    .cr-num { font-family: 'Lora', serif; font-size: 22px; color: var(--g2); }
+    .cr-lbl { font-size: 11px; color: var(--ink3); margin-top: 2px; }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; }
+    .checklist li {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+      font-size: 14px; color: var(--ink2); line-height: 1.6; cursor: pointer;
+      transition: color .15s;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li.done { color: var(--ink3); text-decoration: line-decoration; }
+    .check-box {
+      width: 18px; height: 18px; border-radius: 5px;
+      border: 1.5px solid var(--border); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .15s; background: var(--white); margin-top: 1px;
+    }
+    .checklist li.done .check-box { background: var(--g2); border-color: var(--g2); color: #fff; }
+    .checklist li.done span { text-decoration: line-through; opacity: .6; }
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrap { background: var(--border); border-radius: 4px; height: 6px; margin: 6px 0 14px; overflow: hidden; }
+    .progress-bar  { height: 100%; background: var(--g2); border-radius: 4px; transition: width .4s; }
+
+    /* ── PHOTO GALLERY ── */
+    .gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 1rem; }
+    .gal-item { border-radius: var(--r); overflow: hidden; aspect-ratio: 1; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--g1); color: rgba(255,255,255,.55);
+      text-align: center; padding: 2rem; font-size: 13px; margin-top: 2rem;
+    }
+    footer strong { color: #fff; }
+
+    /* ── FADE IN ── */
+    .fade-in { animation: fadeUp .45s ease both; }
+    @keyframes fadeUp { from { opacity:0; transform: translateY(14px); } to { opacity:1; transform: translateY(0); } }
+    .fade-in:nth-child(2) { animation-delay: .06s; }
+    .fade-in:nth-child(3) { animation-delay: .12s; }
+    .fade-in:nth-child(4) { animation-delay: .18s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .nav-pills { display: none; flex-direction: column; position: absolute; top: 58px; left: 0; right: 0; background: var(--g1); padding: 1rem; gap: 2px; z-index: 300; }
+      .nav-pills.open { display: flex; }
+      .hamburger { display: block; }
+      .g2, .g3, .g4, .menu-grid { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: repeat(2,1fr); }
+      .page { padding: 2rem 1.2rem 4rem; }
+      .sched-row { grid-template-columns: 90px 1fr; }
+      .calc-result { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
-<body data-page="home">
+<body>
 
-  <nav>
-    <div class="nav-brand"><span>🍌</span> Molly Aunty's Pothichoru</div>
-    <button class="nav-toggle" id="nav-toggle">☰</button>
-    <ul class="nav-links">
-      <li><a href="index.html"     data-page="home">Home</a></li>
-      <li><a href="plan.html"      data-page="plan">The Plan</a></li>
-      <li><a href="menu.html"      data-page="menu">Menu</a></li>
-      <li><a href="roles.html"     data-page="roles">Roles</a></li>
-      <li><a href="money.html"     data-page="money">Money</a></li>
-      <li><a href="concerns.html"  data-page="concerns">Concerns</a></li>
-    </ul>
-  </nav>
+<!-- NAV -->
+<nav>
+  <div class="nav-brand" onclick="showSection('home')">
+    <span class="leaf">🍌</span> Molly Aunty's Kitchen
+  </div>
+  <button class="hamburger" id="ham">☰</button>
+  <ul class="nav-pills" id="navpills">
+    <li><a onclick="showSection('home')"     data-s="home">Home</a></li>
+    <li><a onclick="showSection('menu')"     data-s="menu">Menu</a></li>
+    <li><a onclick="showSection('plan')"     data-s="plan">The Plan</a></li>
+    <li><a onclick="showSection('roles')"    data-s="roles">Roles</a></li>
+    <li><a onclick="showSection('money')"    data-s="money">Money</a></li>
+    <li><a onclick="showSection('april')"    data-s="april">April Tasks</a></li>
+    <li><a onclick="showSection('concerns')" data-s="concerns">Concerns</a></li>
+  </ul>
+</nav>
 
+
+<!-- ════════════ HOME ════════════ -->
+<section id="home" class="active">
   <div class="hero">
-    <span class="hero-leaf">🍌</span>
-    <h1>Molly Aunty's Pothichoru</h1>
-    <p class="hero-tagline">Homemade Kerala meals, packed with love</p>
-    <p class="hero-location">Malleshpalya · Kaggadasapura · Bangalore</p>
+    <span class="hero-emoji">🍌</span>
+    <h1>Molly Aunty's <em>Kitchen</em></h1>
+    <p class="hero-sub">Homemade Kerala pothichoru, packed with love</p>
+    <p class="hero-loc">Malleshpalya · Kaggadasapura · Bangalore</p>
+    <div class="hero-badges">
+      <span class="hbadge">🥬 Veg</span>
+      <span class="hbadge">🥚 Egg</span>
+      <span class="hbadge">🐟 Fish</span>
+      <span class="hbadge">🍗 Chicken</span>
+    </div>
   </div>
 
   <div class="page">
-
-    <div class="section-label">What is this?</div>
-    <div class="card card-accent">
-      <h3>The idea</h3>
-      <p>Molly aunty loves to cook. She is also business-minded. The idea is simple — she cooks fresh Kerala pothichoru every morning, and we take orders, manage delivery, and market it online. Customers order one day in advance. Profit is split 50-50.</p>
+    <!-- Hero image -->
+    <div class="img-ph fade-in" style="height:280px;margin-bottom:2rem">
+      <span class="ph-icon">📸</span>
+      <span class="ph-text">Add a hero photo of the pothichoru here<br><small>Replace this div with an &lt;img&gt; tag once you have a photo</small></span>
     </div>
 
-    <div class="section-label">This website</div>
-    <div class="card">
-      <p>This is our internal planning document. It lays out everything — the menu, the roles, the timeline, how the money works, and what concerns we need to watch out for. Use the navigation above to explore each section.</p>
+    <div class="slabel">The idea</div>
+    <div class="card card-green fade-in">
+      <h3>What is this business?</h3>
+      <p>Molly aunty loves to cook and she has a head for business. The plan is simple — she cooks fresh Kerala pothichoru every morning, you handle orders and marketing. Customers order one day in advance. Profit split 50-50. Start small in May, grow from there.</p>
     </div>
 
-    <div class="section-label">At a glance</div>
-    <div class="grid-3" style="margin-bottom:12px">
-      <div class="stat"><div class="num">4</div><div class="lbl">menu items</div></div>
-      <div class="stat"><div class="num">1 day</div><div class="lbl">advance order needed</div></div>
-      <div class="stat"><div class="num">50–50</div><div class="lbl">profit split</div></div>
+    <div class="slabel">At a glance</div>
+    <div class="g3 fade-in" style="margin-bottom:12px">
+      <div class="stat"><div class="snum">4</div><div class="slbl">menu items</div></div>
+      <div class="stat"><div class="snum">1 day</div><div class="slbl">advance order needed</div></div>
+      <div class="stat"><div class="snum">50–50</div><div class="slbl">profit split</div></div>
     </div>
 
-    <div class="section-label">The three-month plan</div>
-    <div class="grid-3">
-      <div class="card">
-        <span class="badge badge-blue">April</span>
+    <div class="slabel">Three-month roadmap</div>
+    <div class="g3 fade-in">
+      <div class="card" style="text-align:center;cursor:pointer" onclick="showSection('plan')">
+        <div style="font-size:28px;margin-bottom:8px">📋</div>
+        <span class="badge bb">April</span>
         <h3>Plan</h3>
-        <p>Set up pages, test a batch, finalise prices. Zero orders, zero pressure.</p>
+        <p>Set up, test, finalise. Zero orders, zero pressure.</p>
       </div>
-      <div class="card">
-        <span class="badge badge-amber">May</span>
+      <div class="card" style="text-align:center;cursor:pointer" onclick="showSection('plan')">
+        <div style="font-size:28px;margin-bottom:8px">🚀</div>
+        <span class="badge ba">May</span>
         <h3>Launch</h3>
-        <p>First real orders. Start small with people we know. Learn as we go.</p>
+        <p>First real orders. Start small with people we know.</p>
       </div>
-      <div class="card">
-        <span class="badge badge-green">June+</span>
+      <div class="card" style="text-align:center;cursor:pointer" onclick="showSection('plan')">
+        <div style="font-size:28px;margin-bottom:8px">📈</div>
+        <span class="badge bg">June+</span>
         <h3>Grow</h3>
-        <p>Scale what works. Adjust what doesn't. One step at a time.</p>
+        <p>Scale what works. Adjust what doesn't.</p>
       </div>
     </div>
 
-    <div class="section-label">Where to begin</div>
-    <div class="grid-2">
-      <a href="plan.html" class="card" style="display:block;transition:border-color .15s" onmouseover="this.style.borderColor='#2d5a27'" onmouseout="this.style.borderColor=''">
-        <span class="badge badge-green">Start here</span>
-        <h3>The full plan →</h3>
-        <p>Week-by-week breakdown of April and May, plus what happens after.</p>
-      </a>
-      <a href="roles.html" class="card" style="display:block;transition:border-color .15s" onmouseover="this.style.borderColor='#2d5a27'" onmouseout="this.style.borderColor=''">
-        <span class="badge badge-gray">Clarity</span>
-        <h3>Who does what →</h3>
-        <p>Aunty's role vs your role. No confusion, no overlap.</p>
-      </a>
+    <div class="slabel">Quick links</div>
+    <div class="g2 fade-in">
+      <div class="card" style="cursor:pointer;transition:border-color .2s" onclick="showSection('menu')" onmouseover="this.style.borderColor='var(--g2)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:24px;margin-bottom:6px">🍱</div>
+        <h3>See the menu →</h3>
+        <p>4 types, pricing, packaging, and what goes inside.</p>
+      </div>
+      <div class="card" style="cursor:pointer;transition:border-color .2s" onclick="showSection('april')" onmouseover="this.style.borderColor='var(--g2)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:24px;margin-bottom:6px">✅</div>
+        <h3>April checklist →</h3>
+        <p>Interactive tick-list of everything to set up this month.</p>
+      </div>
     </div>
 
-    <div class="card card-warn" style="margin-top:1rem">
+    <div class="card card-amber fade-in" style="margin-top:.5rem">
       <h3>The one rule</h3>
       <p>Never take more orders than aunty can comfortably cook. A tired cook means bad food. Bad food means no repeat customers. Start slow, grow steady.</p>
     </div>
+  </div>
+</section>
 
+
+<!-- ════════════ MENU ════════════ -->
+<section id="menu">
+<div class="page">
+  <div class="page-header">
+    <h2>🍱 The Menu</h2>
+    <p>Four types of pothichoru. All fresh, all made that morning.</p>
   </div>
 
-  <footer>
-    <strong>Molly Aunty's Pothichoru</strong> &nbsp;·&nbsp; Malleshpalya, Bangalore &nbsp;·&nbsp; Internal planning document
-  </footer>
+  <div class="slabel">What is pothichoru?</div>
+  <div class="card card-green" style="margin-bottom:2rem">
+    <h3>Kerala's original packed lunch</h3>
+    <p>Pothichoru is a traditional Kerala meal — rice, curries, pickle and sides — wrapped in banana leaf. The leaf subtly flavours the food and keeps it warm. It is comfort food, it is nostalgic, and there is nothing like it made fresh at home.</p>
+  </div>
 
-  <script src="nav.js"></script>
+  <div class="slabel">Our four dishes</div>
+  <div class="menu-grid">
+    <div class="menu-card">
+      <div class="img-ph menu-img"><span class="ph-icon">🥬</span><span class="ph-text">Add veg pothichoru photo</span></div>
+      <div class="menu-body">
+        <div class="mname">Veg Pothichoru</div>
+        <div class="mdesc">Rice · sambar · avial or thoran · pickle · papad</div>
+        <div class="mprice">₹80 – ₹100</div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="img-ph menu-img"><span class="ph-icon">🥚</span><span class="ph-text">Add egg pothichoru photo</span></div>
+      <div class="menu-body">
+        <div class="mname">Egg Pothichoru</div>
+        <div class="mdesc">Rice · egg curry · thoran · pickle · papad</div>
+        <div class="mprice">₹100 – ₹120</div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="img-ph menu-img"><span class="ph-icon">🐟</span><span class="ph-text">Add fish pothichoru photo</span></div>
+      <div class="menu-body">
+        <div class="mname">Fish Pothichoru</div>
+        <div class="mdesc">Rice · fish curry · thoran · pickle · papad</div>
+        <div class="mprice">₹130 – ₹160</div>
+        <div class="menu-note">⚠ Nearby delivery only in summer</div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="img-ph menu-img"><span class="ph-icon">🍗</span><span class="ph-text">Add chicken pothichoru photo</span></div>
+      <div class="menu-body">
+        <div class="mname">Chicken Pothichoru</div>
+        <div class="mdesc">Rice · chicken curry · thoran · pickle · papad</div>
+        <div class="mprice">₹140 – ₹170</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12px;color:var(--ink3);margin-top:8px">* Final prices confirmed after the April test batch. Estimates only for now.</p>
+
+  <div class="slabel">Packaging</div>
+  <div class="g2">
+    <div class="card">
+      <span class="badge bg">Preferred</span>
+      <h3>🍃 Banana leaf</h3>
+      <p>Authentic, Instagram-worthy, subtly flavours the rice. Source from the local market each morning.</p>
+    </div>
+    <div class="card">
+      <span class="badge ba">Backup</span>
+      <h3>📦 Eco box</h3>
+      <p>For when banana leaf is unavailable. Sturdy, leak-proof, cost included in order price.</p>
+    </div>
+  </div>
+
+  <div class="slabel">Photo gallery — add your photos here</div>
+  <div class="gallery">
+    <div class="img-ph gal-item"><span class="ph-icon">📸</span></div>
+    <div class="img-ph gal-item"><span class="ph-icon">📸</span></div>
+    <div class="img-ph gal-item"><span class="ph-icon">📸</span></div>
+    <div class="img-ph gal-item"><span class="ph-icon">📸</span></div>
+    <div class="img-ph gal-item"><span class="ph-icon">📸</span></div>
+    <div class="img-ph gal-item"><span class="ph-icon">📸</span></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink3);margin-top:8px">Replace each placeholder div with <code>&lt;img src="assets/your-photo.jpg"&gt;</code></p>
+</div>
+</section>
+
+
+<!-- ════════════ PLAN ════════════ -->
+<section id="plan">
+<div class="page">
+  <div class="page-header">
+    <h2>📋 The Plan</h2>
+    <p>Week by week — what we do, when, and why.</p>
+  </div>
+
+  <div class="card card-green" style="margin-bottom:2rem">
+    <h3>The golden rule for April</h3>
+    <p>No orders in April. Not a single one. April is only for setting things up so that May feels easy. This is not laziness — this is being smart about it.</p>
+  </div>
+
+  <div class="slabel">April — Planning month</div>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-wk">Week 1 · April 1–7</div>
+      <h4>Set up the basics</h4>
+      <p>Create the Instagram page. Decide the business name together. Set up a WhatsApp business number for orders. No posting yet — just building the foundation quietly.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-wk">Week 2 · April 8–14</div>
+      <h4>Cook a test batch</h4>
+      <p>Aunty cooks one full batch of all 4 types. Track every cost — rice, curry, fish, chicken, gas used, banana leaf. This gives the real number to price from. No guessing.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-wk">Week 3 · April 15–21</div>
+      <h4>Photos, content, and pricing</h4>
+      <p>Take proper photos in good natural light. Film a short reel of the packing. Write captions. Finalise menu prices based on the test batch cost. Set up UPI for payments.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot amber"></div>
+      <div class="tl-wk">Week 4 · April 22–30</div>
+      <h4>Free trial with people we know</h4>
+      <p>Give 3–5 pothichorus to neighbours or friends. Get honest feedback. Fix anything aunty wants to change. By April 30 we should feel confident and ready.</p>
+    </div>
+  </div>
+
+  <div class="slabel">May — Soft launch</div>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-dot amber"></div>
+      <div class="tl-wk">Week 1 · May 1–7</div>
+      <h4>First post, first real orders</h4>
+      <p>Post the reel and photos on Instagram and WhatsApp status. Tell friends and family. Maximum 5 orders per day only. Deliver, learn, fix anything that felt awkward.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot amber"></div>
+      <div class="tl-wk">Week 2 · May 8–14</div>
+      <h4>Open to the local area</h4>
+      <p>Post in Malleshpalya and Kaggadasapura Facebook groups. If Week 1 went well, increase to 8 orders per day. Ask first customers for a photo or WhatsApp review.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot amber"></div>
+      <div class="tl-wk">Weeks 3–4 · May 15–31</div>
+      <h4>Find the rhythm</h4>
+      <p>Track which dish sells most. Which day gets most orders. Note any delivery or gas problems. All this data shapes June's plan. We learn in May. We improve in June.</p>
+    </div>
+  </div>
+
+  <div class="slabel">June onward</div>
+  <div class="card">
+    <span class="badge bg">Flexible</span>
+    <h3>Scale or adjust — based on what May taught us</h3>
+    <p>If orders are healthy — slowly increase the daily cap. If a dish isn't selling — remove or reprice it. If a day is always slow — rest that day. There is no failure here, only learning.</p>
+  </div>
+
+  <div class="slabel">How orders work — every day</div>
+  <div class="card card-amber">
+    <h3>Order rule: 8 PM the night before</h3>
+    <p>Customers must order by 8 PM the evening before. No exceptions. This gives aunty time to check stock, buy ingredients if needed, and cook fresh and properly the next morning. Late orders = next day.</p>
+  </div>
+
+  <div class="slabel">How delivery works</div>
+  <div class="card">
+    <div class="sched-row"><div class="sched-time">Delivery window</div><div class="sched-task">11:30 AM – 1:30 PM (lunchtime)</div></div>
+    <div class="sched-row"><div class="sched-time">Platform</div><div class="sched-task">Rapido or Uber — whichever is cheaper that day</div></div>
+    <div class="sched-row"><div class="sched-time">Delivery zone</div><div class="sched-task">Malleshpalya and Kaggadasapura only (to start)</div></div>
+    <div class="sched-row"><div class="sched-time">Delivery fee</div><div class="sched-task">₹30–40 flat per order, added to the total</div></div>
+    <div class="sched-row"><div class="sched-time">Payment</div><div class="sched-task">UPI only, collected in advance — no cash, no pay on delivery</div></div>
+  </div>
+
+  <div class="slabel">Marketing channels</div>
+  <div class="g2">
+    <div class="card"><span class="badge bg">Priority</span><h3>📸 Instagram</h3><p>Reels of the packing, food photos, daily stories. Use Bangalore food hashtags. Most powerful channel for this.</p></div>
+    <div class="card"><span class="badge bg">Priority</span><h3>💬 WhatsApp</h3><p>Daily status update with the menu. Forward to housing society and office groups nearby. Free and direct.</p></div>
+    <div class="card"><span class="badge ba">Secondary</span><h3>👥 Facebook</h3><p>Post in local Malleshpalya and Kaggadasapura groups. Reaches neighbours and the crowd that still uses Facebook.</p></div>
+    <div class="card"><span class="badge ba">Secondary</span><h3>🗣 Word of mouth</h3><p>First 10 customers are everything. One happy customer tells five people. Consider a small referral discount.</p></div>
+  </div>
+</div>
+</section>
+
+
+<!-- ════════════ ROLES ════════════ -->
+<section id="roles">
+<div class="page">
+  <div class="page-header">
+    <h2>👥 Who Does What</h2>
+    <p>Clear roles from day one. No overlap, no confusion.</p>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.5rem">
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div class="role-avatar av-g">MT</div>
+        <div>
+          <h3 style="font-size:18px">Molly aunty</h3>
+          <div style="font-size:12px;color:var(--ink3)">The cook — heart of this business</div>
+        </div>
+      </div>
+      <ul class="role-list">
+        <li>Cook all orders fresh every morning</li>
+        <li>Decide what goes in each pothichoru</li>
+        <li>Keep ingredients stocked and fresh</li>
+        <li>Monitor and manage gas usage</li>
+        <li>Maintain quality and taste every day</li>
+        <li>Say clearly if any day she cannot cook</li>
+        <li>Set the daily maximum order limit</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div class="role-avatar av-b">You</div>
+        <div>
+          <h3 style="font-size:18px">You</h3>
+          <div style="font-size:12px;color:var(--ink3)">Marketing, orders, and operations</div>
+        </div>
+      </div>
+      <ul class="role-list">
+        <li>Run Instagram, WhatsApp, Facebook</li>
+        <li>Collect and confirm orders by 8 PM nightly</li>
+        <li>Tell aunty the exact order count each evening</li>
+        <li>Collect UPI payment before every order</li>
+        <li>Book Rapido / Uber each morning</li>
+        <li>Track expenses and profit each week</li>
+        <li>Handle all customer questions politely</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel">Daily routine together</div>
+  <div class="card" style="margin-bottom:1.5rem">
+    <div class="sched-row"><div class="sched-time">By 8 PM<br><small style="color:var(--ink3)">(prev night)</small></div><div class="sched-task">You collect all orders from WhatsApp and Instagram DM. Confirm count with aunty. Collect UPI payment from every customer.</div></div>
+    <div class="sched-row"><div class="sched-time">7–9 AM</div><div class="sched-task">Aunty starts cooking. You book Rapido or Uber based on delivery addresses.</div></div>
+    <div class="sched-row"><div class="sched-time">10–11 AM</div><div class="sched-task">Aunty packs. You coordinate pickup time with delivery person.</div></div>
+    <div class="sched-row"><div class="sched-time">11:30–1:30</div><div class="sched-task">Deliveries go out. You track each delivery and confirm receipt with customer.</div></div>
+    <div class="sched-row"><div class="sched-time">Evening</div><div class="sched-task">Post one Instagram story. Check DMs for next day orders. Update expense log. Rest. Maximum 30–45 mins of work.</div></div>
+  </div>
+
+  <div class="card card-green">
+    <h3>Aunty sets the limit. We respect it.</h3>
+    <p>If she can comfortably cook 6 orders that day — the answer is 6 orders. Not 8 because there is demand. Not 10 because we want more money. Her kitchen, her pace, her call.</p>
+  </div>
+  <div class="card card-amber">
+    <h3>If you are having a bad day</h3>
+    <p>Post a "closed today, back tomorrow" story. One missed day will not break this business. Your wellbeing is not negotiable. This business exists to help you, not drain you.</p>
+  </div>
+</div>
+</section>
+
+
+<!-- ════════════ MONEY ════════════ -->
+<section id="money">
+<div class="page">
+  <div class="page-header">
+    <h2>💰 Money</h2>
+    <p>How the money flows, how the profit is split, and what to track every week.</p>
+  </div>
+
+  <div class="card card-amber" style="margin-bottom:2rem">
+    <h3>These are estimates</h3>
+    <p>All numbers here are rough starting estimates. The April test batch gives us the real cost per portion. Update this page after that.</p>
+  </div>
+
+  <div class="slabel">Interactive profit calculator</div>
+  <div class="card" style="margin-bottom:1.5rem">
+    <h3>Adjust to see your daily profit</h3>
+    <div style="margin-top:1rem">
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--ink3)">
+        <span>Orders per day</span><span id="orders-val" style="font-weight:500;color:var(--ink)">8</span>
+      </div>
+      <input type="range" class="calc-slider" id="orders-slider" min="3" max="20" value="8" step="1">
+
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--ink3);margin-top:.5rem">
+        <span>Average order value (₹)</span><span id="avg-val" style="font-weight:500;color:var(--ink)">₹120</span>
+      </div>
+      <input type="range" class="calc-slider" id="avg-slider" min="80" max="170" value="120" step="5">
+    </div>
+    <div class="calc-result">
+      <div><div class="cr-num" id="gross">₹960</div><div class="cr-lbl">gross / day</div></div>
+      <div><div class="cr-num" id="profit">₹430</div><div class="cr-lbl">est. profit / day</div></div>
+      <div><div class="cr-num" id="share">₹215</div><div class="cr-lbl">your share / day</div></div>
+    </div>
+  </div>
+
+  <div class="slabel">Daily cost breakdown (8 orders)</div>
+  <div class="card" style="margin-bottom:1.5rem">
+    <div class="money-row"><span class="ml">Ingredients (rice, curries, sides)</span><span class="mr">~₹400</span></div>
+    <div class="money-row"><span class="ml">Gas share per day</span><span class="mr">~₹60</span></div>
+    <div class="money-row"><span class="ml">Packaging (banana leaf or box)</span><span class="mr">~₹80</span></div>
+    <div class="money-row"><span class="ml">Delivery platform fee</span><span class="mr">~₹0–40</span></div>
+    <div class="money-row total"><span class="ml">Net profit per day</span><span class="mr">~₹420–460</span></div>
+  </div>
+
+  <div class="slabel">Profit split — 50-50</div>
+  <div class="g2" style="margin-bottom:1.5rem">
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div class="role-avatar av-g" style="width:38px;height:38px;font-size:13px">MT</div>
+        <div><h3 style="font-size:16px">Molly aunty</h3><div style="font-size:11px;color:var(--ink3)">For cooking and kitchen work</div></div>
+      </div>
+      <div style="font-family:'Lora',serif;font-size:30px;color:var(--g2)">~₹210</div>
+      <div style="font-size:12px;color:var(--ink3);margin-top:2px">per day · ~₹4,600 / month</div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div class="role-avatar av-b" style="width:38px;height:38px;font-size:13px">You</div>
+        <div><h3 style="font-size:16px">You</h3><div style="font-size:11px;color:var(--ink3)">For marketing and operations</div></div>
+      </div>
+      <div style="font-family:'Lora',serif;font-size:30px;color:#1a56db">~₹210</div>
+      <div style="font-size:12px;color:var(--ink3);margin-top:2px">per day · ~₹4,600 / month</div>
+    </div>
+  </div>
+
+  <div class="slabel">What to track every week</div>
+  <div class="card card-green">
+    <p style="line-height:2.1;font-size:14px">
+      <strong style="color:var(--ink)">Total orders taken</strong> — write it down every day<br>
+      <strong style="color:var(--ink)">Total revenue collected</strong> — sum of all UPI payments<br>
+      <strong style="color:var(--ink)">Ingredient spend</strong> — keep every receipt or note every purchase<br>
+      <strong style="color:var(--ink)">Gas + packaging</strong> — estimate per cylinder used<br>
+      <strong style="color:var(--g2)">Net profit = Revenue − all costs → split equally every Sunday</strong>
+    </p>
+  </div>
+
+  <div class="slabel">Growth scenario</div>
+  <div class="card">
+    <div class="money-row"><span class="ml">5 orders / day (Week 1 of May)</span><span class="mr" style="color:var(--ink3)">~₹130 each / day</span></div>
+    <div class="money-row"><span class="ml">8 orders / day (Week 2–3)</span><span class="mr">~₹210 each / day</span></div>
+    <div class="money-row"><span class="ml">12 orders / day (if aunty is comfortable)</span><span class="mr" style="color:var(--g2)">~₹320 each / day</span></div>
+    <div class="money-row total"><span class="ml">15 orders / day (future goal)</span><span class="mr">~₹400 each / day</span></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink3);margin-top:6px">* Only increase orders when aunty says she is ready. Never push for more.</p>
+</div>
+</section>
+
+
+<!-- ════════════ APRIL CHECKLIST ════════════ -->
+<section id="april">
+<div class="page">
+  <div class="page-header">
+    <h2>✅ April Checklist</h2>
+    <p>Everything to set up before May. Tick each one off as you go.</p>
+  </div>
+
+  <div class="card card-green" style="margin-bottom:1.5rem">
+    <h3>How to use this</h3>
+    <p>Click any item to mark it done. Progress bar shows how far along you are. Take it one task at a time — no rush. All of April is yours to do this calmly.</p>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--ink3);margin-bottom:4px">
+    <span>Progress</span><span id="prog-txt">0 of 16 done</span>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="prog-bar" style="width:0%"></div></div>
+
+  <div class="slabel">Week 1 — Digital setup</div>
+  <ul class="checklist" id="checklist">
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Create Instagram page with name, bio, and profile photo</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Set up WhatsApp Business number for order collection</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Decide the final business name with aunty</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Set up UPI (Google Pay or PhonePe) for receiving payments</span></li>
+
+    <div class="slabel" style="margin-top:1.5rem">Week 2 — Test batch</div>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Cook one full test batch of all 4 types</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Track exact cost of ingredients used</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Track gas used for the batch</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Calculate cost per portion for each type</span></li>
+
+    <div class="slabel" style="margin-top:1.5rem">Week 3 — Content and pricing</div>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Take good photos of all 4 types in natural light</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Film a short reel of the packing process</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Write Instagram bio and first caption</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Finalise menu prices with aunty based on test batch cost</span></li>
+
+    <div class="slabel" style="margin-top:1.5rem">Week 4 — Trial run</div>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Give free trial to 3–5 neighbours or friends</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Collect honest feedback on taste, quantity, and packaging</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Source banana leaves from local market and check cost</span></li>
+    <li onclick="toggleCheck(this)"><div class="check-box"></div><span>Confirm backup gas cylinder is at home before May starts</span></li>
+  </ul>
+</div>
+</section>
+
+
+<!-- ════════════ CONCERNS ════════════ -->
+<section id="concerns">
+<div class="page">
+  <div class="page-header">
+    <h2>⚠️ Concerns</h2>
+    <p>Things that could go wrong — and exactly how we handle each one.</p>
+  </div>
+
+  <div class="card card-green" style="margin-bottom:2rem">
+    <h3>Thinking ahead is not being negative</h3>
+    <p>Knowing about a problem before it happens means we are not surprised by it. Every concern here has a plan. None of these should stop us from starting.</p>
+  </div>
+
+  <div class="slabel">High priority</div>
+  <div class="card">
+    <div class="concern">
+      <div class="cdot" style="background:#c0392b"></div>
+      <div>
+        <strong>Gas shortage in Bangalore</strong>
+        This is real and ongoing. Our whole business depends on cooking. No gas = no food.
+        <div class="resolve">✅ Always keep one backup cylinder at home. Never start cooking if gas is uncertain that morning. Take a day off rather than risk bad food. Post a "closed today" story — customers will understand.</div>
+      </div>
+    </div>
+    <div class="concern">
+      <div class="cdot" style="background:#c0392b"></div>
+      <div>
+        <strong>Overcommitting orders</strong>
+        Saying yes to 15 orders when aunty is comfortable with 8 means tired cooking and worse food.
+        <div class="resolve">✅ Aunty sets the daily cap. Post "sold out for today" when reached. This actually creates a sense of demand — scarcity is good for the brand.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slabel">Medium priority</div>
+  <div class="card">
+    <div class="concern">
+      <div class="cdot" style="background:var(--a2)"></div>
+      <div>
+        <strong>Bangalore heat in May</strong>
+        May is very hot. Fish spoils faster. Long deliveries in the afternoon heat are risky.
+        <div class="resolve">✅ Deliver within 2 hours of packing. Fish orders only for customers within 15–20 min delivery. Deliver before 1:30 PM before the heat peaks.</div>
+      </div>
+    </div>
+    <div class="concern">
+      <div class="cdot" style="background:var(--a2)"></div>
+      <div>
+        <strong>Delivery cost eating into profit</strong>
+        Multiple small deliveries in different directions add up quickly.
+        <div class="resolve">✅ Charge a flat ₹30–40 delivery fee per order. Keep zone tight — Malleshpalya and Kaggadasapura only. Batch nearby orders into one delivery where possible.</div>
+      </div>
+    </div>
+    <div class="concern">
+      <div class="cdot" style="background:var(--a2)"></div>
+      <div>
+        <strong>Ingredient prices changing</strong>
+        Fish prices especially can shift week to week.
+        <div class="resolve">✅ Review prices every 2–3 weeks. Build a buffer into fish pricing. If costs spike — update the menu and announce it honestly on Instagram. Customers respect transparency.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slabel">Worth knowing about</div>
+  <div class="card">
+    <div class="concern">
+      <div class="cdot" style="background:var(--ink3)"></div>
+      <div>
+        <strong>Slow order days at the start</strong>
+        The first two weeks will likely be slow. That is completely normal.
+        <div class="resolve">✅ The goal of Week 1 is not profit — it is learning the process and getting the first few happy customers who will then tell others. Keep posting consistently.</div>
+      </div>
+    </div>
+    <div class="concern">
+      <div class="cdot" style="background:var(--ink3)"></div>
+      <div>
+        <strong>A customer complains</strong>
+        It will happen at some point. Even the best cooks get complaints.
+        <div class="resolve">✅ Respond calmly. Ask what was wrong. If valid — offer a replacement. Do not argue. One handled complaint can turn a critic into a loyal customer.</div>
+      </div>
+    </div>
+    <div class="concern">
+      <div class="cdot" style="background:var(--ink3)"></div>
+      <div>
+        <strong>Your energy and mental health</strong>
+        This should help, not hurt. Marketing is 30–45 minutes max per day.
+        <div class="resolve">✅ If a day is hard — put up a "closed today" story. The business will be there tomorrow. Your wellbeing comes before every single order.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-green" style="margin-top:1rem">
+    <h3>The bottom line</h3>
+    <p>None of these are dealbreakers. They are just things to keep an eye on. The fact that we have thought about them puts us ahead of most small businesses that start without any planning at all.</p>
+  </div>
+</div>
+</section>
+
+
+<footer>
+  <strong>Molly Aunty's Kitchen</strong> &nbsp;·&nbsp; Malleshpalya, Bangalore &nbsp;·&nbsp; Internal planning document &nbsp;·&nbsp; Est. May 2025
+</footer>
+
+<script>
+  // ── NAVIGATION ──
+  function showSection(id) {
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-pills a').forEach(a => {
+      a.classList.toggle('active', a.dataset.s === id);
+    });
+    document.getElementById('navpills').classList.remove('open');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── HAMBURGER ──
+  document.getElementById('ham').addEventListener('click', function(e) {
+    e.stopPropagation();
+    document.getElementById('navpills').classList.toggle('open');
+  });
+  document.addEventListener('click', () => document.getElementById('navpills').classList.remove('open'));
+
+  // ── PROFIT CALCULATOR ──
+  const oSlider = document.getElementById('orders-slider');
+  const aSlider = document.getElementById('avg-slider');
+  function calcProfit() {
+    const orders = parseInt(oSlider.value);
+    const avg    = parseInt(aSlider.value);
+    const gross  = orders * avg;
+    const costs  = Math.round(orders * (50 + 10 + avg * 0.42));
+    const profit = Math.max(0, gross - costs);
+    const share  = Math.round(profit / 2);
+    document.getElementById('orders-val').textContent = orders;
+    document.getElementById('avg-val').textContent    = '₹' + avg;
+    document.getElementById('gross').textContent      = '₹' + gross;
+    document.getElementById('profit').textContent     = '₹' + profit;
+    document.getElementById('share').textContent      = '₹' + share;
+  }
+  oSlider.addEventListener('input', calcProfit);
+  aSlider.addEventListener('input', calcProfit);
+
+  // ── CHECKLIST ──
+  function toggleCheck(li) {
+    li.classList.toggle('done');
+    if (li.classList.contains('done')) {
+      li.querySelector('.check-box').textContent = '✓';
+    } else {
+      li.querySelector('.check-box').textContent = '';
+    }
+    updateProgress();
+  }
+  function updateProgress() {
+    const items = document.querySelectorAll('#checklist li');
+    const done  = document.querySelectorAll('#checklist li.done').length;
+    const pct   = Math.round((done / items.length) * 100);
+    document.getElementById('prog-bar').style.width = pct + '%';
+    document.getElementById('prog-txt').textContent = done + ' of ' + items.length + ' done';
+  }
+
+  // ── SET ACTIVE NAV ON LOAD ──
+  document.querySelector('[data-s="home"]').classList.add('active');
+</script>
 </body>
 </html>
