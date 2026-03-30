@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Money · Molly Aunty's Pothichoru</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="money">
+
+  <nav>
+    <div class="nav-brand"><span>🍌</span> Molly Aunty's Pothichoru</div>
+    <button class="nav-toggle" id="nav-toggle">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html"     data-page="home">Home</a></li>
+      <li><a href="plan.html"      data-page="plan">The Plan</a></li>
+      <li><a href="menu.html"      data-page="menu">Menu</a></li>
+      <li><a href="roles.html"     data-page="roles">Roles</a></li>
+      <li><a href="money.html"     data-page="money">Money</a></li>
+      <li><a href="concerns.html"  data-page="concerns">Concerns</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+
+    <div class="page-header">
+      <h1>Money</h1>
+      <p>How the money flows, how profit is split, and what to track every week.</p>
+    </div>
+
+    <div class="card card-warn" style="margin-bottom:2rem">
+      <h3>Important — these are estimates</h3>
+      <p>All numbers on this page are rough starting estimates. The April test batch will give us the real cost per portion. We update this page after that.</p>
+    </div>
+
+    <div class="section-label">Starting scenario — 8 orders per day</div>
+    <div class="grid-3" style="margin-bottom:1.5rem">
+      <div class="stat"><div class="num">8</div><div class="lbl">orders / day</div></div>
+      <div class="stat"><div class="num">₹120</div><div class="lbl">avg order value</div></div>
+      <div class="stat"><div class="num" style="color:var(--green)">₹960</div><div class="lbl">gross revenue / day</div></div>
+    </div>
+
+    <div class="section-label">Estimated daily costs</div>
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="money-row">
+        <span class="label">Ingredients (rice, curries, sides)</span>
+        <span class="amount">~₹400</span>
+      </div>
+      <div class="money-row">
+        <span class="label">Gas share per day</span>
+        <span class="amount">~₹60</span>
+      </div>
+      <div class="money-row">
+        <span class="label">Packaging (banana leaf or box)</span>
+        <span class="amount">~₹80</span>
+      </div>
+      <div class="money-row">
+        <span class="label">Delivery platform fee (absorbed)</span>
+        <span class="amount">~₹0–40</span>
+      </div>
+      <div class="money-row total">
+        <span class="label">Net profit / day</span>
+        <span class="amount">~₹420–460</span>
+      </div>
+    </div>
+
+    <div class="section-label">Profit split — 50-50</div>
+    <div class="grid-2" style="margin-bottom:1.5rem">
+      <div class="card">
+        <div class="role-header" style="margin-bottom:8px">
+          <div class="avatar avatar-green">MT</div>
+          <div>
+            <h3>Molly aunty</h3>
+            <div class="sub">For cooking and kitchen work</div>
+          </div>
+        </div>
+        <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--green)">~₹210</div>
+        <div style="font-size:12px;color:var(--ink-3);margin-top:2px">per day · ~₹4,600 / month (22 days)</div>
+      </div>
+      <div class="card">
+        <div class="role-header" style="margin-bottom:8px">
+          <div class="avatar avatar-blue">You</div>
+          <div>
+            <h3>You</h3>
+            <div class="sub">For marketing and operations</div>
+          </div>
+        </div>
+        <div style="font-family:'Playfair Display',serif;font-size:28px;color:#1a56db">~₹210</div>
+        <div style="font-size:12px;color:var(--ink-3);margin-top:2px">per day · ~₹4,600 / month (22 days)</div>
+      </div>
+    </div>
+
+    <div class="section-label">What to track every week</div>
+    <div class="card" style="margin-bottom:1.5rem">
+      <p style="line-height:2.2;font-size:14px">
+        <strong style="color:var(--ink)">Total orders taken</strong> &nbsp;·&nbsp; Write it down every day<br>
+        <strong style="color:var(--ink)">Total revenue collected</strong> &nbsp;·&nbsp; Sum of all UPI payments received<br>
+        <strong style="color:var(--ink)">Total ingredients spent</strong> &nbsp;·&nbsp; Keep every receipt or note every purchase<br>
+        <strong style="color:var(--ink)">Gas share</strong> &nbsp;·&nbsp; Estimate based on cylinder usage<br>
+        <strong style="color:var(--ink)">Packaging cost</strong> &nbsp;·&nbsp; Note cost of leaves or boxes bought<br>
+        <strong style="color:var(--ink)">Net profit = Revenue − all costs</strong><br>
+        <strong style="color:var(--green)">Split equally every Sunday</strong>
+      </p>
+    </div>
+
+    <div class="section-label">Payment from customers</div>
+    <div class="card card-accent">
+      <h3>UPI only — collected before delivery</h3>
+      <p>No cash. No pay on delivery. This avoids awkward situations and means the money is in hand before we spend on ingredients or gas that day. Google Pay or PhonePe both work fine.</p>
+    </div>
+
+    <div class="section-label">If an order is cancelled</div>
+    <div class="card">
+      <p>If a customer cancels after we have already cooked — no refund. The food is already made. If we cancel on the customer — full refund immediately, no argument. Our reliability is our reputation.</p>
+    </div>
+
+    <div class="section-label">Scaling up — what the numbers look like</div>
+    <div class="card">
+      <div class="money-row">
+        <span class="label">5 orders / day (Week 1)</span>
+        <span class="amount" style="color:var(--ink-3)">~₹130 profit / day each</span>
+      </div>
+      <div class="money-row">
+        <span class="label">8 orders / day (Week 2–3)</span>
+        <span class="amount">~₹210 profit / day each</span>
+      </div>
+      <div class="money-row">
+        <span class="label">12 orders / day (if aunty is comfortable)</span>
+        <span class="amount" style="color:var(--green)">~₹320 profit / day each</span>
+      </div>
+      <div class="money-row">
+        <span class="label">15 orders / day (future goal)</span>
+        <span class="amount" style="color:var(--green)">~₹400 profit / day each</span>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--ink-3);margin-top:6px">* Only increase order count when aunty says she is ready. Never push for more.</p>
+
+  </div>
+
+  <footer>
+    <strong>Molly Aunty's Pothichoru</strong> &nbsp;·&nbsp; Malleshpalya, Bangalore &nbsp;·&nbsp; Internal planning document
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>
