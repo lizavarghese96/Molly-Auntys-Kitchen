@@ -1,67 +1,54 @@
-# 🍌 Molly Aunty's Pothichoru — Business Plan
+# Molly Aunty's Kitchen — v2
 
-Internal planning website for our homemade Kerala pothichoru business based in Malleshpalya, Kaggadasapura, Bangalore.
+A single-page interactive planning website for our homemade Kerala pothichoru business.
 
-## About
+## What's new in v2
 
-Molly aunty cooks. We handle marketing, orders, and delivery. Customers order one day in advance. Profit is split 50-50.
+- **Single page** — everything in one `index.html`, no broken links between pages
+- **Interactive profit calculator** — drag sliders to see daily profit in real time
+- **April checklist** — tick off tasks as you complete them, with a progress bar
+- **Image placeholders** — clearly marked spots to drop in real food photos
+- **Mobile friendly** — works great on aunty's phone
+- **Animated** — subtle fade-ins and the swaying banana leaf on load
 
-**Menu:** Veg · Egg · Fish · Chicken pothichoru  
-**Location:** Malleshpalya, Kaggadasapura, Bangalore  
-**Launch:** May 2025
+## How to add your photos
 
-## Pages
-
-| Page | Description |
-|------|-------------|
-| `index.html` | Home — overview and quick navigation |
-| `plan.html` | Full week-by-week plan for April and May |
-| `menu.html` | Menu items, pricing, and packaging |
-| `roles.html` | Who does what — aunty vs you |
-| `money.html` | Profit estimates, cost tracking, split |
-| `concerns.html` | Potential issues and how to handle them |
-
-## Viewing the site
-
-**Option 1 — Open locally:**  
-Just open `index.html` in any browser. No server needed.
-
-**Option 2 — GitHub Pages:**  
-1. Push this repo to GitHub  
-2. Go to Settings → Pages  
-3. Set source to `main` branch, `/ (root)` folder  
-4. Your site will be live at `https://yourusername.github.io/pothichoru-plan`
-
-## Structure
-
-```
-pothichoru-plan/
-├── index.html
-├── plan.html
-├── menu.html
-├── roles.html
-├── money.html
-├── concerns.html
-├── style.css
-├── nav.js
-├── assets/
-│   └── images/       ← Add food photos here
-└── README.md
-```
-
-## Adding photos
-
-Put any food photos inside `assets/images/` and reference them in the HTML like:
+Find the placeholder divs like this:
 ```html
-<img src="assets/images/pothichoru.jpg" alt="Pothichoru" style="width:100%;border-radius:12px">
+<div class="img-ph menu-img">
+  <span class="ph-icon">🥬</span>
+  <span class="ph-text">Add veg pothichoru photo</span>
+</div>
 ```
 
-## Timeline
+Replace with:
+```html
+<img src="assets/veg-pothichoru.jpg" alt="Veg Pothichoru" style="width:100%;height:180px;object-fit:cover">
+```
 
-- **April 2025** — Planning month. Set up pages, test batch, finalise prices.
-- **May 2025** — Soft launch. First real orders. Start small.
-- **June 2025+** — Scale or adjust based on what May teaches us.
+Put all your photos in the `assets/` folder.
+
+## How to upload this to GitHub
+
+1. Go to your repo: `https://github.com/lizavarghese96/Molly-Auntys-Kitchen`
+2. Click **Add file → Upload files**
+3. Upload `index.html` — this replaces your old one
+4. Commit changes
+5. Your site at `https://lizavarghese96.github.io/Molly-Auntys-Kitchen/` updates in ~1 min
+
+> The old separate pages (plan.html, menu.html etc.) can stay — they won't affect the new index.html
+
+## Sections
+
+| Section | What's inside |
+|---------|--------------|
+| Home | Overview, roadmap, quick links |
+| Menu | 4 dishes with image slots + photo gallery |
+| The Plan | Full April/May timeline + delivery/marketing details |
+| Roles | Aunty vs you, daily schedule |
+| Money | **Interactive profit calculator** + cost breakdown |
+| April Checklist | **Interactive tick-list** with progress bar |
+| Concerns | All risks with green "how we handle it" boxes |
 
 ---
-
-*One banana leaf at a time. 🍌*
+*One banana leaf at a time.*
